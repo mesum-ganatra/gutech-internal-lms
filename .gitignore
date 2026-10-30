@@ -1,0 +1,14 @@
+node_modules/
+dist/
+coverage/
+*.tsbuildinfo
+.env
+.env.*
+!.env.example
+Frontend/.env.local
+Backend/.env.local
+Backend/.env
+*.pdf
+.tmp-live-audit.mjs
+Backend/supabase/.temp/
+Internal LMS – AI Build Spec (React + Node + Supabase).pdf

@@ -1,0 +1,8 @@
+{
+  "installCommand": "npm ci",
+  "buildCommand": "npm run build --workspace gutech-lms-web",
+  "outputDirectory": "Frontend/dist",
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/" }
+  ]
+}
