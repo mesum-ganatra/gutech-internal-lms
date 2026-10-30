@@ -12,3 +12,5 @@ Backend/.env
 .tmp-live-audit.mjs
 Backend/supabase/.temp/
 Internal LMS – AI Build Spec (React + Node + Supabase).pdf
+
+.vercel
