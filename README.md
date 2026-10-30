@@ -108,7 +108,7 @@ After the Vercel URL is assigned, set Render `CLIENT_ORIGIN` to that exact origi
 - API routes are under `/api`; `/health` is public and read-only.
 - User creation is an admin API operation because Supabase Auth sign-up is disabled.
 - Normal API requests use the signed-in user's JWT, so Postgres RLS remains active. Admin and cross-user operations use the server-only service-role client.
-- The health endpoint returns HTTP 503 until the `profiles` table is reachable with the configured service role. A failing readiness check usually means migrations are pending or the backend Supabase credentials point to the wrong project.
+- The health endpoint returns HTTP 503 until the `profiles`, `courses`, `assignments`, and `quizzes` tables are reachable with the configured service role. A failing readiness check usually means the Supabase migrations or grants are pending, or the backend credentials point to the wrong project.
 
 ## Walkthrough video (3–5 minutes)
 
