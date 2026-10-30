@@ -84,24 +84,22 @@ npm test
 
 ## Production deployment
 
-The repository includes a Render blueprint (`render.yaml`) for the API and a Vercel configuration (`vercel.json`) for the single page web app. Push the source to GitHub, then create each hosted project from that repository.
+Deploy both workspaces as separate Vercel projects from this GitHub repository:
 
-### Render API
+### Vercel API project
 
-- Use the included blueprint or create a Node web service from the repository root.
-- Build command: `npm ci && npm run build --workspace gutech-lms-api`
-- Start command: `npm run start --workspace gutech-lms-api`
-- Health check: `/health`
-- Configure `SUPABASE_URL`, `SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`, `CLIENT_ORIGIN`, and `PASSWORD_RESET_REDIRECT` as Render environment variables. Set `NODE_ENV=production`.
+- Import the `Backend` directory as a Vercel project and use its detected Express framework.
+- Configure `SUPABASE_URL`, `SUPABASE_ANON_KEY`, and `SUPABASE_SERVICE_ROLE_KEY` from the backend environment. Keep the service-role key in this project only.
+- Set `CLIENT_ORIGIN` to the frontend origin and `PASSWORD_RESET_REDIRECT` to the frontend origin plus `/reset-password`. Set `NODE_ENV=production`.
+- The API health check is `/health`; application routes are under `/api`.
 
-### Vercel web app
+### Vercel web project
 
-- Import the repository and keep the project root at the repository root.
-- The included configuration builds the `gutech-lms-web` workspace and serves `Frontend/dist` with SPA rewrites.
-- Set `VITE_API_URL` to `https://YOUR-RENDER-SERVICE.onrender.com/api`.
-- Set `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` to the same Supabase project used by the API.
+- Import the `Frontend` directory as a second Vercel project and use its detected Vite framework.
+- Set `VITE_API_URL` to `https://YOUR-API-PROJECT.vercel.app/api`.
+- Set `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` to the same Supabase project as the API.
 
-After the Vercel URL is assigned, set Render `CLIENT_ORIGIN` to that exact origin and `PASSWORD_RESET_REDIRECT` to `https://YOUR-VERCEL-DOMAIN/reset-password`. Add the production site and reset URL under Supabase Auth URL configuration. Redeploy Render after changing its environment variables.
+After both deployments have URLs, update the API project's `CLIENT_ORIGIN` and `PASSWORD_RESET_REDIRECT`, then redeploy the API. Add the production frontend URL and reset URL under Supabase Auth URL configuration. Keep all service-role credentials out of the frontend project.
 
 ## API notes
 
